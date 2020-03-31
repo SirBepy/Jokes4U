@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/show.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous" />
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a th:href="'/home'">Home</a></li>
+            <li><a th:href="'/new'">Add New Joke</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn active">Categories</a>
+                <div class="dropdown-content">
+                    <a th:href="'/'">All Jokes</a>
+                    <a th:each="category : ${categories}" th:href="'/show/' + ${category.id}"
+                        th:text="${category.name}"> </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <h1 class="title" th:text="${category}">All Jokes</h1>
+    <div class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn sorter">Sort by</a>
+        <div class="dropdown-content">
+            <a th:href="'/show/' + ${categoryId} + '?page=' + ${page} + '&sort=oldest'">Oldest Edited</a>
+            <a th:href="'/show/' + ${categoryId} + '?page=' + ${page} + '&sort=youngest'">Youngest Edited</a>
+            <a th:href="'/show/' + ${categoryId} + '?page=' + ${page} + '&sort=ascending-difference'">Ascending
+                Difference</a>
+            <a th:href="'/show/' + ${categoryId} + '?page=' + ${page} + '&sort=descending-difference'">Descending
+                Difference</a>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>#</th>
+                <th th:if="${category == 'All jokes'}">Category</th>
+                <th>Joke</th>
+                <th>Likes</th>
+                <th>Dislikes</th>
+                <th>Difference</th>
+            </tr>
+            <tr th:each="joke : ${jokes}" th:if="${category == 'All jokes'}">
+                <td th:text="${joke.index} + '.'"> 1 </td>
+                <th th:text="${joke.categoryName}"> Yo Momma</th>
+                <td th:text="${joke.content}"> Yo momma is so ugly when she tried to join an ugly contest they said,
+                    "Sorry, no professionals </td>
+                <td th:text="${joke.likes}"> 0 </td>
+                <td th:text="${joke.dislikes}"> 0 </td>
+                <td th:text="(${joke.likes} - ${joke.dislikes})"> 0 </td>
+                <td>
+                    <a th:href="'/update/' + ${categoryId} + '/'  + ${page} + '/'  + ${sort} + '/'  + ${joke.id} + '/true'">
+                        <i class="far fa-thumbs-up"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/update/' + ${categoryId} + '/'  + ${page} + '/'  + ${sort} + '/'  + ${joke.id} + '/false'">
+                        <i class="far fa-thumbs-down"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr th:each="joke : ${jokes}" th:unless="${category == 'All jokes'}">
+                <td th:text="${joke.index} + '.'"></td>
+                <td th:text="${joke.content}"> </td>
+                <td th:text="${joke.likes}"> </td>
+                <td th:text="${joke.dislikes}"> </td>
+                <td th:text="(${joke.likes} - ${joke.dislikes})"> </td>
+                <td>
+                    <a th:href="'/update/' + ${categoryId} + '/'  + ${page} + '/'  + ${sort} + '/'  + ${joke.id} + '/true'">
+                        <i class="far fa-thumbs-up"></i>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="'/update/' + ${categoryId} + '/'  + ${page} + '/'  + ${sort} + '/'  + ${joke.id} + '/false'">
+                        <i class="far fa-thumbs-down"></i>
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <div class="arrows-container">
+            <a th:if="${page > 0}" th:href="'/show/' + ${categoryId} + '?page=' + ${page - 1} + '&sort=' + ${sort}"
+                class="back"><i class="fas fa-chevron-left"></i></a>
+            <p th:text="${page + 1} + ' out of ' + ${maxpage + 1}"></p>
+            <a th:if="${maxpage > page}"
+                th:href="'/show/' + ${categoryId} + '?page=' + ${page + 1} + '&sort=' + ${sort}" class="forward"><i
+                    class="fas fa-chevron-right"></i></a>
+        </div>
+    </div>
+</body>
+
+</html>

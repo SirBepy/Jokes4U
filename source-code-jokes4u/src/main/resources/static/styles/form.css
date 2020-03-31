@@ -1,0 +1,12 @@
+form {
+    text-align: center;
+    font-size: 150%;
+}
+
+.form-group {
+    margin: 2em;
+}
+
+textarea {
+    resize: none;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Page</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+</head>
+
+<body onload="init()">
+    <nav>
+        <ul>
+            <li><a th:href="'/home'">Home</a></li>
+            <li><a th:href="'/new'" class="active">Add New Joke</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Categories</a>
+                <div class="dropdown-content">
+                    <a th:href="'/'">All Jokes</a>
+                    <a th:each="category : ${categories}" th:href="'/show/' + ${category.id}"
+                        th:text="${category.name}"> </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <h1 class="title" th:if="${success != null}" th:text="${success}"></h1>
+    <h1 class="title" th:if="${success == null}">
+        Add a new joke! <br> It's a great way to stay happy!
+    </h1>
+    <form action="/post" th:action="@{/post}" th:object="${jokeForm}" method="post">
+        <div class="form-group">
+            <label for="category">Choose your category</label>
+            <br>
+            <select id="category" th:field="*{categoryId}" onchange="showNewCategory()">
+                <option value="-1">--Make new Category--</option>
+                <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
+                </option>
+            </select>
+            <p th:if="${#fields.hasErrors('categoryId')}" th:errors="*{categoryId}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="content">Write your joke</label>
+            <br>
+            <textarea id="content" th:field="*{content}" rows="5" cols="50"></textarea>
+            <p th:if="${#fields.hasErrors('content')}" th:errors="*{content}">Name Error</p>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #ccc968;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #ccc968;
+}
+
+.table-container {
+    padding: 0 10vw 0 10vw;
+}
+
+.arrows-container {
+    display: block;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.back,
+.forward {
+    background-color: #bbb860;
+    border-radius: 50%;
+    display: inline-block;
+    width: 2em;
+    line-height: 2em;
+}
+
+
+.arrows-container p {
+    display: inline-block;
+    margin: 0 .5em;
+}

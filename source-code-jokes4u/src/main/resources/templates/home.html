@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Page</title>
+    <link rel="stylesheet" href="/styles/global.css">
+    <link rel="stylesheet" href="/styles/home.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+</head>
+
+<body onload="initpage()">
+    <nav>
+        <ul>
+            <li><a th:href="'/home'" class="active">Home</a></li>
+            <li><a th:href="'/new'">Add New Joke</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">Categories</a>
+                <div class="dropdown-content">
+                    <a th:href="'/'">All Jokes</a>
+                    <a th:each="category : ${categories}" th:href="'/show/' + ${category.id}"
+                        th:text="${category.name}"> </a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <h1 class="title">Welcome back!</h1>
+    <div class="category-container">
+        <a th:href="'/home'">All</a>
+        <a th:each="category : ${categories}" th:href="'/show/' + ${category.id}" th:text="${category.name}"> </a>
+    </div>
+</body>
+
+</html>
