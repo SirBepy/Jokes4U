@@ -7,7 +7,7 @@ The second part is the code comments.
 
 ### Warning
 
-Before doing anything else, make sure you have a database called flyway_demo and a user in charge of it with the following credentials:
+Before doing anything else, make sure you have a PostgreSQL database called flyway_demo and a user in charge of it with the following credentials:
 username=bob
 password=bob123
 
